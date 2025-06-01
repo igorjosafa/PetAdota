@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.http.ResponseEntity;
 import app.adocao.pets.repository.EspecieRepository;
+import app.adocao.pets.service.EspecieService;
 import java.util.List;
 import app.adocao.pets.repository.RacaRepository;
 import org.springframework.http.HttpStatus;
@@ -33,11 +34,17 @@ public class EspecieRestController {
 
     private final EspecieRepository especieRepository;
     private final RacaRepository racaRepository;
+    private final EspecieService especieService;
 
-    public EspecieRestController(EspecieRepository especieRepository, RacaRepository racaRepository) {
-        this.racaRepository = racaRepository;
-        this.especieRepository = especieRepository;
-    }
+    public EspecieRestController(
+        EspecieRepository especieRepository, 
+        RacaRepository racaRepository,
+        EspecieService especieService
+        ) {
+            this.especieService = especieService;
+            this.racaRepository = racaRepository;
+            this.especieRepository = especieRepository;
+        }
 
 
     /**
@@ -80,6 +87,9 @@ public class EspecieRestController {
         Especie especie = new Especie();
         especie.setNome(nome);
         Especie salva = especieRepository.save(especie);
+        
+        especieService.salvarEspecieCriarRacaSRD(especie);
+
         return ResponseEntity.ok(salva);
     }
 
