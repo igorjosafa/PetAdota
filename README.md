@@ -30,8 +30,8 @@ O sistema permite que abrigos cadastrem, atualizem, removam e listem pets dispon
 #### Clonando o projeto
 
 ```bash
-git clone https://github.com/igorjosafa/petadota.git
-cd petadota
+git clone [https://github.com/igorjosafa/petadota.git](https://github.com/igorjosafa/PetAdota.git)
+cd PetAdota
 ```
 
 ### Rodando com Maven
