@@ -1,5 +1,23 @@
 # PetAdota
 
+## Autores
+
+ - IGOR JOSAFA TORRES BARBOSA – RA: 72300095
+
+ - KAYO EMANOEL ROCHA MACHADO - RA: 72300258
+
+ - LUIZA EDUARDA AMARO DIAS - RA: 72300995
+
+ - VALÉRIA DOS SANTOS RODRIGUES - RA: 72300369
+
+---
+
+## Repositório
+
+O projeto se encontra hospedado no repositório [https://github.com/igorjosafa/PetAdota.git](https://github.com/igorjosafa/PetAdota.git), o qual contém o código do sistema e um arquivo README.md contendo as informações pertinentes deste projeto.
+
+---
+
 ## Descrição do Projeto
 
 **PetAdota** é um sistema web desenvolvido para apoiar a missão da ONG de mesmo nome, cuja proposta é facilitar a adoção de animais abandonados por meio da conexão entre abrigos e potenciais adotantes.
