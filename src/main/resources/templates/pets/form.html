@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Formulário Pet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Adoção</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/pets">Pets</a></li>
+                <li class="nav-item"><a class="nav-link" href="/racas">Raças</a></li>
+                <li class="nav-item"><a class="nav-link" href="/especies">Espécies</a></li>
+                <li class="nav-item"><a class="nav-link" href="/adotantes">Adotantes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/adocoes">Adoções</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+<h1 class="mb-4">Cadastro de Pet</h1>
+<form th:action="@{/pets/salvar}" th:object="${pet}" method="post" enctype="multipart/form-data">
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="mb-3">
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" /><br/>
+    </div>
+
+    <div class="mb-3">
+        <label>Espécie:</label>
+        <select id="especieSelect" th:field="*{especie}" required>
+            <option value="">-- selecione --</option>
+            <option th:each="especie : ${especies}"
+                    th:value="${especie.id}"
+                    th:text="${especie.nome}">
+            </option>
+        </select><br/>
+    </div>
+
+    <div class="mb-3">
+        <label>Raça:</label>
+        <select id="racaSelect" th:field="*{raca}" required>
+            <option value="">-- selecione uma espécie primeiro --</option>
+        </select><br/>
+    </div>
+
+    <div class="mb-3">
+        <label>Idade:</label>
+        <input type="number" th:field="*{idade}" />
+        <br/>
+    </div>
+
+    <div class="mb-3">
+        <label>Descrição:</label>
+        <input type="text" th:field="*{descricao}" />
+        <br/>
+    </div>
+
+    <div class="mb-3">
+        <input type="file" name="fotoArquivo" />
+    </div>
+    
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/pets">Voltar</a>
+</div>
+</body>
+
+<script>
+document.getElementById('especieSelect').addEventListener('change', function () {
+    const especieId = this.value;
+    const racaSelect = document.getElementById('racaSelect');
+
+    // Limpa as opções anteriores
+    racaSelect.innerHTML = '<option disabled selected>Carregando...</option>';
+
+    if (especieId) {
+        fetch(`/api/racas/por-especie/${especieId}`)
+            .then(response => response.json())
+            .then(data => {
+                racaSelect.innerHTML = '<option value="">-- selecione --</option>';
+                data.forEach(raca => {
+                    const option = document.createElement('option');
+                    option.value = raca.id;
+                    option.textContent = raca.nome;
+                    racaSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                racaSelect.innerHTML = '<option value="">Erro ao carregar raças</option>';
+                console.error(error);
+            });
+    } else {
+        racaSelect.innerHTML = '<option value="">-- selecione uma espécie primeiro --</option>';
+    }
+});
+</script>
+
+</html>

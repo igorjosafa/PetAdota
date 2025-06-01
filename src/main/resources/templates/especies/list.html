@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Espécies</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Adoção</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/pets">Pets</a></li>
+                <li class="nav-item"><a class="nav-link" href="/racas">Raças</a></li>
+                <li class="nav-item"><a class="nav-link" href="/especies">Espécies</a></li>
+                <li class="nav-item"><a class="nav-link" href="/adotantes">Adotantes</a></li>
+                <li class="nav-item"><a class="nav-link" href="/adocoes">Adoções</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Espécies Cadastradas</h1>
+        <a href="/especies/nova" class="btn btn-success">+ Adicionar nova Espécie</a>
+    </div>
+    
+    <div th:if="${erro}" class="alert alert-danger" role="alert">
+        <p th:text="${erro}"></p>
+    </div>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr><th>Nome</th><th>Ações</th></tr>
+        </thead>
+        <tbody>
+            <tr th:each="especie : ${especies}">
+                <td th:text="${especie.nome}">Nome</td>
+                <td>
+                    <a th:href="@{'/especies/editar/' + ${especie.id}}">Editar</a>
+                    <a th:href="@{'/especies/deletar/' + ${especie.id}}"
+                    onclick="return confirm('Tem certeza?');">Deletar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
