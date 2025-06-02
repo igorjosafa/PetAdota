@@ -178,6 +178,12 @@ Content-Type: multipart/form-data
 - `descricao`: String
 - `foto`: MultipartFile
 
+##### Exemplo de POST com Content-Type: multipart/form-data, utilizando curl
+
+```http
+curl -F "nome=Milo" -F "idade=2" -F "racaId=1" -F "descricao=Cachorrinho dócil e educado" -F "foto=@C:\Users\igor.barbosa\Downloads\istockphoto-961585286-612x612.jpg" POST http://localhost:8080/api/pets
+```
+
 #### Atualizar pet existente
 
 ```http
